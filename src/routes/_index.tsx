@@ -1,14 +1,19 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { createFileRoute } from '@tanstack/react-router'
+import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
-import cloudflareLogo from './assets/Cloudflare_Logo.svg'
+import cloudflareLogo from '../assets/Cloudflare_Logo.svg'
 
-function App() {
+export const Route = createFileRoute('/_index')({
+  component: HomePage,
+})
+
+function HomePage() {
   const [count, setCount] = useState(0)
   const [name, setName] = useState('unknown')
 
   return (
-    <>
+    <div>
       <div className="flex justify-center">
         <a href='https://vite.dev' target='_blank' className="block font-medium text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300">
           <img src={viteLogo} className='h-24 p-6 transition-[filter] duration-300 hover:drop-shadow-[0_0_0.5em_#646cffaa]' alt='Vite logo' />
@@ -30,7 +35,7 @@ function App() {
           count is {count}
         </button>
         <p className="mt-4">
-          Edit <code>src/App.tsx</code> and save to test HMR
+          Edit <code>src/routes/_index.tsx</code> and save to test HMR
         </p>
       </div>
       <div className='p-8'>
@@ -52,8 +57,6 @@ function App() {
       <p className='text-gray-500'>
         Click on the Vite and React logos to learn more
       </p>
-    </>
+    </div>
   )
 }
-
-export default App
