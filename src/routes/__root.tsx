@@ -8,7 +8,7 @@ export const Route = createRootRoute({
     <div className="min-h-screen p-10">
       <div className="flex gap-2 mb-4">
         <Link
-          to=""
+          to="/"
           className="text-blue-500 hover:text-blue-700 font-medium"
           activeProps={{ className: 'font-bold text-blue-700' }}
         >

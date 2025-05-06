@@ -4,7 +4,7 @@ import reactLogo from '../assets/react.svg'
 import viteLogo from '/vite.svg'
 import cloudflareLogo from '../assets/Cloudflare_Logo.svg'
 
-export const Route = createFileRoute('/_index')({
+export const Route = createFileRoute('/')({
   component: HomePage,
 })
 
@@ -35,7 +35,7 @@ function HomePage() {
           count is {count}
         </button>
         <p className="mt-4">
-          Edit <code>src/routes/_index.tsx</code> and save to test HMR
+          Edit <code>src/routes/index.tsx</code> and save to test HMR
         </p>
       </div>
       <div className='p-8'>
