@@ -1,54 +1,64 @@
-# React + TypeScript + Vite
+# Example Vite React SPA with Cloudflare Workers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+このプロジェクトは、最新のReact SPAアプリケーションをCloudflare Workersでホスティングするための実装例です。
 
-Currently, two official plugins are available:
+## 技術スタック
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### コア技術
+- React 19
+- TypeScript
+- Vite 6
+- TanStack Router
+- Tailwind CSS 4
 
-## Expanding the ESLint configuration
+### デプロイメント
+- Cloudflare Workers
+- Wrangler
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 開発ツール
+- ESLint 9
+- SWC
+- pnpm
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## プロジェクト構成
+
+```
+├── src/                  # ソースコード
+│   ├── assets/          # 静的アセット
+│   ├── routes/          # TanStack Routerのルート定義
+│   ├── main.tsx         # アプリケーションのエントリーポイント
+│   └── routeTree.gen.ts # 自動生成されたルートツリー
+├── worker/              # Cloudflare Workersのコード
+├── public/              # 静的ファイル
+└── dist/                # ビルド出力
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 開発方法
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 開発サーバーの起動
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+pnpm dev
 ```
+
+### ビルド
+
+```bash
+pnpm build
+```
+
+### プレビュー
+
+```bash
+pnpm preview
+```
+
+### Cloudflareへのデプロイ
+
+```bash
+pnpm deploy
+```
+
+## ESLint設定
+
+このプロジェクトでは最新のESLint 9（フラットコンフィグ）を使用しています。必要に応じて`eslint.config.js`を編集してください。
