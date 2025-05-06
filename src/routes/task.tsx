@@ -22,8 +22,25 @@ type FilterType = 'all' | 'active' | 'completed'
 type SortType = 'createdAt' | 'priority' | 'title'
 
 function TaskPage() {
+  const savedTasks = localStorage.getItem('tasks')
+  let t: Task[] = []
+  if (savedTasks) {
+    try {
+      // Parse the JSON and convert string dates back to Date objects
+      type StoredTask = Omit<Task, 'createdAt'> & { createdAt: string }
+      const parsedTasks = JSON.parse(savedTasks).map((task: StoredTask) => ({
+        ...task,
+        createdAt: new Date(task.createdAt)
+      }))
+      console.info('Loaded tasks from localStorage:', parsedTasks)
+      t = parsedTasks
+    } catch (error) {
+      console.error('Error loading tasks from localStorage:', error)
+      throw error
+    }
+  }
   // Task management state
-  const [tasks, setTasks] = useState<Task[]>([])
+  const [tasks, setTasks] = useState<Task[]>(t)
   const [newTaskTitle, setNewTaskTitle] = useState<string>('')
   const [newTaskPriority, setNewTaskPriority] = useState<Task['priority']>('medium')
   const [filter, setFilter] = useState<FilterType>('all')
@@ -32,6 +49,7 @@ function TaskPage() {
 
   // Load tasks from localStorage on component mount
   useEffect(() => {
+    console.info('Loading tasks from localStorage')
     const savedTasks = localStorage.getItem('tasks')
     if (savedTasks) {
       try {
@@ -41,6 +59,7 @@ function TaskPage() {
           ...task,
           createdAt: new Date(task.createdAt)
         }))
+        console.info('Loaded tasks from localStorage:', parsedTasks)
         setTasks(parsedTasks)
       } catch (error) {
         console.error('Error loading tasks from localStorage:', error)
@@ -50,6 +69,7 @@ function TaskPage() {
 
   // Save tasks to localStorage whenever they change
   useEffect(() => {
+    console.info('Saving tasks to localStorage:', tasks)
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
 
@@ -217,37 +237,34 @@ function TaskPage() {
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden p-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold">Task List</h2>
-          
+
           <div className="flex flex-wrap gap-4">
             {/* Filter controls */}
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setFilter('all')}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${
-                  filter === 'all'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                }`}
+                className={`px-3 py-1 text-sm rounded-lg transition-colors ${filter === 'all'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  }`}
               >
                 All
               </button>
               <button
                 onClick={() => setFilter('active')}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${
-                  filter === 'active'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                }`}
+                className={`px-3 py-1 text-sm rounded-lg transition-colors ${filter === 'active'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  }`}
               >
                 Active
               </button>
               <button
                 onClick={() => setFilter('completed')}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${
-                  filter === 'completed'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                }`}
+                className={`px-3 py-1 text-sm rounded-lg transition-colors ${filter === 'completed'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                  }`}
               >
                 Completed
               </button>
