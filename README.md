@@ -1,64 +1,64 @@
 # Example Vite React SPA with Cloudflare Workers
 
-このプロジェクトは、最新のReact SPAアプリケーションをCloudflare Workersでホスティングするための実装例です。
+This project is an implementation example for hosting a modern React SPA application on Cloudflare Workers.
 
-## 技術スタック
+## Technology Stack
 
-### コア技術
+### Core Technologies
 - React 19
 - TypeScript
 - Vite 6
 - TanStack Router
 - Tailwind CSS 4
 
-### デプロイメント
+### Deployment
 - Cloudflare Workers
 - Wrangler
 
-### 開発ツール
+### Development Tools
 - ESLint 9
 - SWC
 - pnpm
 
-## プロジェクト構成
+## Project Structure
 
 ```
-├── src/                  # ソースコード
-│   ├── assets/          # 静的アセット
-│   ├── routes/          # TanStack Routerのルート定義
-│   ├── main.tsx         # アプリケーションのエントリーポイント
-│   └── routeTree.gen.ts # 自動生成されたルートツリー
-├── worker/              # Cloudflare Workersのコード
-├── public/              # 静的ファイル
-└── dist/                # ビルド出力
+├── src/                  # Source code
+│   ├── assets/          # Static assets
+│   ├── routes/          # TanStack Router route definitions
+│   ├── main.tsx         # Application entry point
+│   └── routeTree.gen.ts # Auto-generated route tree
+├── worker/              # Cloudflare Workers code
+├── public/              # Static files
+└── dist/                # Build output
 ```
 
-## 開発方法
+## Development
 
-### 開発サーバーの起動
+### Start Development Server
 
 ```bash
 pnpm dev
 ```
 
-### ビルド
+### Build
 
 ```bash
 pnpm build
 ```
 
-### プレビュー
+### Preview
 
 ```bash
 pnpm preview
 ```
 
-### Cloudflareへのデプロイ
+### Deploy to Cloudflare
 
 ```bash
 pnpm deploy
 ```
 
-## ESLint設定
+## ESLint Configuration
 
-このプロジェクトでは最新のESLint 9（フラットコンフィグ）を使用しています。必要に応じて`eslint.config.js`を編集してください。
+This project uses the latest ESLint 9 (flat config). Edit `eslint.config.js` as needed.
