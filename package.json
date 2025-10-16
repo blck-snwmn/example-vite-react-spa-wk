@@ -9,7 +9,10 @@
 		"lint": "oxlint",
 		"preview": "pnpm run build && vite preview",
 		"deploy": "pnpm run build && wrangler deploy",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"test": "vitest",
+		"test:ui": "vitest --ui",
+		"test:coverage": "vitest --coverage"
 	},
 	"dependencies": {
 		"@tailwindcss/vite": "^4.1.5",
@@ -23,12 +26,18 @@
 	"devDependencies": {
 		"@cloudflare/vite-plugin": "^1.1.0",
 		"@cloudflare/workers-types": "4.20250506.0",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.0",
+		"@testing-library/user-event": "^14.6.1",
 		"@types/react": "^19.0.10",
 		"@types/react-dom": "^19.0.4",
 		"@vitejs/plugin-react-swc": "3.9.0",
+		"@vitest/ui": "^3.2.4",
+		"jsdom": "^27.0.0",
 		"oxlint": "^1.23.0",
 		"typescript": "5.7.3",
 		"vite": "^6.3.1",
+		"vitest": "^3.2.4",
 		"wrangler": "4.14.1"
 	}
 }
