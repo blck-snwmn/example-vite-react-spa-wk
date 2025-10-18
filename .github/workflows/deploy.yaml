@@ -21,7 +21,7 @@ jobs:
       - name: Lint
         run: pnpm run lint
       - name: Test
-        run: pnpm test --run
+        run: pnpm run test run
       - name: Deploy
         run: pnpm run deploy
         env:
