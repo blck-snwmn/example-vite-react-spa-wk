@@ -67,7 +67,7 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
       vite:
-        specifier: ^6.4.1
+        specifier: 6.4.1
         version: 6.4.1(jiti@2.4.2)(lightningcss@1.29.2)(tsx@4.19.4)
       vitest:
         specifier: 3.2.4
@@ -3723,7 +3723,7 @@ snapshots:
 
   tsx@4.19.4:
     dependencies:
-      esbuild: 0.25.4
+      esbuild: 0.25.11
       get-tsconfig: 4.10.0
     optionalDependencies:
       fsevents: 2.3.3
