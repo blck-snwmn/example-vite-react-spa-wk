@@ -33,6 +33,7 @@ jobs:
         run: pnpm run test run
 
   deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     name: Deploy
     needs: [lint, test]
