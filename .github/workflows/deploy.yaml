@@ -8,9 +8,9 @@ on:
         - README.md
 
 jobs:
-  deploy:
+  lint:
     runs-on: ubuntu-latest
-    name: Deploy
+    name: Lint
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
       - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
@@ -20,8 +20,31 @@ jobs:
         run: pnpm install
       - name: Lint
         run: pnpm run lint
+
+  test:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
+        with:
+          version: 8
+      - name: Install
+        run: pnpm install
       - name: Test
         run: pnpm run test run
+
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    needs: [lint, test]
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
+        with:
+          version: 8
+      - name: Install
+        run: pnpm install
       - name: Deploy
         run: pnpm run deploy
         env:
