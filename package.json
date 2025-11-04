@@ -24,7 +24,7 @@
 		"tailwindcss": "^4.1.5"
 	},
 	"devDependencies": {
-		"@cloudflare/vite-plugin": "1.13.13",
+		"@cloudflare/vite-plugin": "1.13.14",
 		"@cloudflare/workers-types": "4.20251014.0",
 		"@testing-library/jest-dom": "6.9.1",
 		"@testing-library/react": "16.3.0",
