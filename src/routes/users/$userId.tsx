@@ -1,23 +1,38 @@
-import { createFileRoute, Link, useParams } from '@tanstack/react-router'
+import { createFileRoute, Link, useParams } from "@tanstack/react-router";
 
 // 型安全なルート定義
-export const Route = createFileRoute('/users/$userId')<{
-  params: { userId: string }
+export const Route = createFileRoute("/users/$userId")<{
+  params: { userId: string };
 }>({
   component: UserDetailPage,
-})
+});
 
 // サンプルユーザーデータ
 const users = [
-  { id: '1', name: 'ユーザー1', role: '開発者', description: 'フロントエンド開発を担当。React、TypeScript、Tailwind CSSのスペシャリスト。' },
-  { id: '2', name: 'ユーザー2', role: 'デザイナー', description: 'UIUXデザインを担当。使いやすく美しいインターフェースを設計する。' },
-  { id: '3', name: 'ユーザー3', role: 'マネージャー', description: 'プロジェクト全体の管理を担当。チームのコーディネートとスケジュール管理を行う。' },
-]
+  {
+    id: "1",
+    name: "ユーザー1",
+    role: "開発者",
+    description: "フロントエンド開発を担当。React、TypeScript、Tailwind CSSのスペシャリスト。",
+  },
+  {
+    id: "2",
+    name: "ユーザー2",
+    role: "デザイナー",
+    description: "UIUXデザインを担当。使いやすく美しいインターフェースを設計する。",
+  },
+  {
+    id: "3",
+    name: "ユーザー3",
+    role: "マネージャー",
+    description: "プロジェクト全体の管理を担当。チームのコーディネートとスケジュール管理を行う。",
+  },
+];
 
 function UserDetailPage() {
   // 型安全なuseParamsの使用
-  const { userId } = useParams({ from: '/users/$userId' })
-  const user = users.find(u => u.id === userId)
+  const { userId } = useParams({ from: "/users/$userId" });
+  const user = users.find((u) => u.id === userId);
 
   if (!user) {
     return (
@@ -28,7 +43,7 @@ function UserDetailPage() {
           ← ユーザー一覧に戻る
         </Link>
       </div>
-    )
+    );
   }
 
   return (
@@ -50,5 +65,5 @@ function UserDetailPage() {
         <p className="text-gray-700 dark:text-gray-300">{user.description}</p>
       </div>
     </div>
-  )
+  );
 }

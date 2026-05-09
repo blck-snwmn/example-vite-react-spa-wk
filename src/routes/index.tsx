@@ -1,10 +1,10 @@
-import { Link } from '@tanstack/react-router'
-import { createFileRoute } from '@tanstack/react-router'
+import { Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 // Type-safe route definition
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: HomePage,
-})
+});
 
 function HomePage() {
   return (
@@ -16,8 +16,8 @@ function HomePage() {
       <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden p-6 mb-8">
         <h2 className="text-2xl font-bold mb-4">Welcome to our React SPA</h2>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          This is a sample Single Page Application built with React, Vite, and TanStack Router.
-          It demonstrates various features and pages that you can explore.
+          This is a sample Single Page Application built with React, Vite, and TanStack Router. It
+          demonstrates various features and pages that you can explore.
         </p>
       </div>
 
@@ -26,7 +26,8 @@ function HomePage() {
         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden p-6">
           <h2 className="text-xl font-bold mb-2">Task Manager</h2>
           <p className="text-gray-700 dark:text-gray-300 mb-4">
-            A full-featured task management application with filtering, sorting, and local storage persistence.
+            A full-featured task management application with filtering, sorting, and local storage
+            persistence.
           </p>
           <Link
             to="/task"
@@ -76,5 +77,5 @@ function HomePage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
