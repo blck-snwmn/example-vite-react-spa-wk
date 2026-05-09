@@ -1,6 +1,6 @@
 // This is the root route file for the TanStack Router
 
-import { createRootRoute, Outlet, Link } from '@tanstack/react-router'
+import { createRootRoute, Outlet, Link } from "@tanstack/react-router";
 
 // Create the root route
 export const Route = createRootRoute({
@@ -10,28 +10,28 @@ export const Route = createRootRoute({
         <Link
           to="/"
           className="text-blue-500 hover:text-blue-700 font-medium"
-          activeProps={{ className: 'font-bold text-blue-700' }}
+          activeProps={{ className: "font-bold text-blue-700" }}
         >
           Home
         </Link>
         <Link
           to="/about"
           className="text-blue-500 hover:text-blue-700 font-medium"
-          activeProps={{ className: 'font-bold text-blue-700' }}
+          activeProps={{ className: "font-bold text-blue-700" }}
         >
           About
         </Link>
         <Link
           to="/task"
           className="text-blue-500 hover:text-blue-700 font-medium"
-          activeProps={{ className: 'font-bold text-blue-700' }}
+          activeProps={{ className: "font-bold text-blue-700" }}
         >
           Tasks
         </Link>
         <Link
           to="/users"
           className="text-blue-500 hover:text-blue-700 font-medium"
-          activeProps={{ className: 'font-bold text-blue-700' }}
+          activeProps={{ className: "font-bold text-blue-700" }}
         >
           Users
         </Link>
@@ -40,4 +40,4 @@ export const Route = createRootRoute({
       <Outlet />
     </div>
   ),
-})
+});

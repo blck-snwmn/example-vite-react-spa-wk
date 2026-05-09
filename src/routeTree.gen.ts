@@ -10,129 +10,129 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as TaskImport } from './routes/task'
-import { Route as AboutImport } from './routes/about'
-import { Route as IndexImport } from './routes/index'
-import { Route as UsersIndexImport } from './routes/users/index'
-import { Route as UsersUserIdImport } from './routes/users/$userId'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as TaskImport } from "./routes/task";
+import { Route as AboutImport } from "./routes/about";
+import { Route as IndexImport } from "./routes/index";
+import { Route as UsersIndexImport } from "./routes/users/index";
+import { Route as UsersUserIdImport } from "./routes/users/$userId";
 
 // Create/Update Routes
 
 const TaskRoute = TaskImport.update({
-  id: '/task',
-  path: '/task',
+  id: "/task",
+  path: "/task",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const AboutRoute = AboutImport.update({
-  id: '/about',
-  path: '/about',
+  id: "/about",
+  path: "/about",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const UsersIndexRoute = UsersIndexImport.update({
-  id: '/users/',
-  path: '/users/',
+  id: "/users/",
+  path: "/users/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const UsersUserIdRoute = UsersUserIdImport.update({
-  id: '/users/$userId',
-  path: '/users/$userId',
+  id: "/users/$userId",
+  path: "/users/$userId",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutImport
-      parentRoute: typeof rootRoute
-    }
-    '/task': {
-      id: '/task'
-      path: '/task'
-      fullPath: '/task'
-      preLoaderRoute: typeof TaskImport
-      parentRoute: typeof rootRoute
-    }
-    '/users/$userId': {
-      id: '/users/$userId'
-      path: '/users/$userId'
-      fullPath: '/users/$userId'
-      preLoaderRoute: typeof UsersUserIdImport
-      parentRoute: typeof rootRoute
-    }
-    '/users/': {
-      id: '/users/'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof UsersIndexImport
-      parentRoute: typeof rootRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/about": {
+      id: "/about";
+      path: "/about";
+      fullPath: "/about";
+      preLoaderRoute: typeof AboutImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/task": {
+      id: "/task";
+      path: "/task";
+      fullPath: "/task";
+      preLoaderRoute: typeof TaskImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/users/$userId": {
+      id: "/users/$userId";
+      path: "/users/$userId";
+      fullPath: "/users/$userId";
+      preLoaderRoute: typeof UsersUserIdImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/users/": {
+      id: "/users/";
+      path: "/users";
+      fullPath: "/users";
+      preLoaderRoute: typeof UsersIndexImport;
+      parentRoute: typeof rootRoute;
+    };
   }
 }
 
 // Create and export the route tree
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/task': typeof TaskRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/users': typeof UsersIndexRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/task": typeof TaskRoute;
+  "/users/$userId": typeof UsersUserIdRoute;
+  "/users": typeof UsersIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/task': typeof TaskRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/users': typeof UsersIndexRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/task": typeof TaskRoute;
+  "/users/$userId": typeof UsersUserIdRoute;
+  "/users": typeof UsersIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/task': typeof TaskRoute
-  '/users/$userId': typeof UsersUserIdRoute
-  '/users/': typeof UsersIndexRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/task": typeof TaskRoute;
+  "/users/$userId": typeof UsersUserIdRoute;
+  "/users/": typeof UsersIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/task' | '/users/$userId' | '/users'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/task' | '/users/$userId' | '/users'
-  id: '__root__' | '/' | '/about' | '/task' | '/users/$userId' | '/users/'
-  fileRoutesById: FileRoutesById
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/" | "/about" | "/task" | "/users/$userId" | "/users";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/" | "/about" | "/task" | "/users/$userId" | "/users";
+  id: "__root__" | "/" | "/about" | "/task" | "/users/$userId" | "/users/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  TaskRoute: typeof TaskRoute
-  UsersUserIdRoute: typeof UsersUserIdRoute
-  UsersIndexRoute: typeof UsersIndexRoute
+  IndexRoute: typeof IndexRoute;
+  AboutRoute: typeof AboutRoute;
+  TaskRoute: typeof TaskRoute;
+  UsersUserIdRoute: typeof UsersUserIdRoute;
+  UsersIndexRoute: typeof UsersIndexRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -141,11 +141,11 @@ const rootRouteChildren: RootRouteChildren = {
   TaskRoute: TaskRoute,
   UsersUserIdRoute: UsersUserIdRoute,
   UsersIndexRoute: UsersIndexRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {

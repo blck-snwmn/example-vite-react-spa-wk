@@ -1,165 +1,165 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
-import { createFileRoute } from '@tanstack/react-router'
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 
 // Type-safe route definition
-export const Route = createFileRoute('/task')({
+export const Route = createFileRoute("/task")({
   component: TaskPage,
-})
+});
 
 // Task type definition
 type Task = {
-  id: string
-  title: string
-  completed: boolean
-  priority: 'low' | 'medium' | 'high'
-  createdAt: Date
-}
+  id: string;
+  title: string;
+  completed: boolean;
+  priority: "low" | "medium" | "high";
+  createdAt: Date;
+};
 
 // Filter type
-type FilterType = 'all' | 'active' | 'completed'
+type FilterType = "all" | "active" | "completed";
 
 // Sort type
-type SortType = 'createdAt' | 'priority' | 'title'
+type SortType = "createdAt" | "priority" | "title";
 
 function TaskPage() {
-  const savedTasks = localStorage.getItem('tasks')
-  let t: Task[] = []
+  const savedTasks = localStorage.getItem("tasks");
+  let t: Task[] = [];
   if (savedTasks) {
     try {
       // Parse the JSON and convert string dates back to Date objects
-      type StoredTask = Omit<Task, 'createdAt'> & { createdAt: string }
+      type StoredTask = Omit<Task, "createdAt"> & { createdAt: string };
       const parsedTasks = JSON.parse(savedTasks).map((task: StoredTask) => ({
         ...task,
-        createdAt: new Date(task.createdAt)
-      }))
-      console.info('Loaded tasks from localStorage:', parsedTasks)
-      t = parsedTasks
+        createdAt: new Date(task.createdAt),
+      }));
+      console.info("Loaded tasks from localStorage:", parsedTasks);
+      t = parsedTasks;
     } catch (error) {
-      console.error('Error loading tasks from localStorage:', error)
-      throw error
+      console.error("Error loading tasks from localStorage:", error);
+      throw error;
     }
   }
   // Task management state
-  const [tasks, setTasks] = useState<Task[]>(t)
-  const [newTaskTitle, setNewTaskTitle] = useState<string>('')
-  const [newTaskPriority, setNewTaskPriority] = useState<Task['priority']>('medium')
-  const [filter, setFilter] = useState<FilterType>('all')
-  const [sortBy, setSortBy] = useState<SortType>('createdAt')
-  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc')
+  const [tasks, setTasks] = useState<Task[]>(t);
+  const [newTaskTitle, setNewTaskTitle] = useState<string>("");
+  const [newTaskPriority, setNewTaskPriority] = useState<Task["priority"]>("medium");
+  const [filter, setFilter] = useState<FilterType>("all");
+  const [sortBy, setSortBy] = useState<SortType>("createdAt");
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
 
   // Load tasks from localStorage on component mount
   useEffect(() => {
-    console.info('Loading tasks from localStorage')
-    const savedTasks = localStorage.getItem('tasks')
+    console.info("Loading tasks from localStorage");
+    const savedTasks = localStorage.getItem("tasks");
     if (savedTasks) {
       try {
         // Parse the JSON and convert string dates back to Date objects
-        type StoredTask = Omit<Task, 'createdAt'> & { createdAt: string }
+        type StoredTask = Omit<Task, "createdAt"> & { createdAt: string };
         const parsedTasks = JSON.parse(savedTasks).map((task: StoredTask) => ({
           ...task,
-          createdAt: new Date(task.createdAt)
-        }))
-        console.info('Loaded tasks from localStorage:', parsedTasks)
-        setTasks(parsedTasks)
+          createdAt: new Date(task.createdAt),
+        }));
+        console.info("Loaded tasks from localStorage:", parsedTasks);
+        setTasks(parsedTasks);
       } catch (error) {
-        console.error('Error loading tasks from localStorage:', error)
+        console.error("Error loading tasks from localStorage:", error);
       }
     }
-  }, [])
+  }, []);
 
   // Save tasks to localStorage whenever they change
   useEffect(() => {
-    console.info('Saving tasks to localStorage:', tasks)
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-  }, [tasks])
+    console.info("Saving tasks to localStorage:", tasks);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   // Task management functions
   const addTask = useCallback(() => {
-    if (newTaskTitle.trim() === '') return
+    if (newTaskTitle.trim() === "") return;
 
     const newTask: Task = {
       id: crypto.randomUUID(),
       title: newTaskTitle.trim(),
       completed: false,
       priority: newTaskPriority,
-      createdAt: new Date()
-    }
+      createdAt: new Date(),
+    };
 
-    setTasks(prevTasks => [...prevTasks, newTask])
-    setNewTaskTitle('')
-    setNewTaskPriority('medium')
-  }, [newTaskTitle, newTaskPriority])
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+    setNewTaskTitle("");
+    setNewTaskPriority("medium");
+  }, [newTaskTitle, newTaskPriority]);
 
   const toggleTaskCompletion = useCallback((id: string) => {
-    setTasks(prevTasks =>
-      prevTasks.map(task =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    )
-  }, [])
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)),
+    );
+  }, []);
 
   const removeTask = useCallback((id: string) => {
-    setTasks(prevTasks => prevTasks.filter(task => task.id !== id))
-  }, [])
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  }, []);
 
-  const updateTaskPriority = useCallback((id: string, priority: Task['priority']) => {
-    setTasks(prevTasks =>
-      prevTasks.map(task =>
-        task.id === id ? { ...task, priority } : task
-      )
-    )
-  }, [])
+  const updateTaskPriority = useCallback((id: string, priority: Task["priority"]) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) => (task.id === id ? { ...task, priority } : task)),
+    );
+  }, []);
 
   const toggleSortDirection = useCallback(() => {
-    setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc')
-  }, [])
+    setSortDirection((prev) => (prev === "asc" ? "desc" : "asc"));
+  }, []);
 
   // Filtered and sorted tasks
   const filteredAndSortedTasks = useMemo(() => {
     // First filter the tasks
-    const filtered = tasks.filter(task => {
-      if (filter === 'all') return true
-      if (filter === 'active') return !task.completed
-      if (filter === 'completed') return task.completed
-      return true
-    })
+    const filtered = tasks.filter((task) => {
+      if (filter === "all") return true;
+      if (filter === "active") return !task.completed;
+      if (filter === "completed") return task.completed;
+      return true;
+    });
 
     // Then sort them
     return [...filtered].sort((a, b) => {
-      let comparison = 0
+      let comparison = 0;
 
-      if (sortBy === 'createdAt') {
-        comparison = a.createdAt.getTime() - b.createdAt.getTime()
-      } else if (sortBy === 'priority') {
-        const priorityValues = { low: 0, medium: 1, high: 2 }
-        comparison = priorityValues[a.priority] - priorityValues[b.priority]
-      } else if (sortBy === 'title') {
-        comparison = a.title.localeCompare(b.title)
+      if (sortBy === "createdAt") {
+        comparison = a.createdAt.getTime() - b.createdAt.getTime();
+      } else if (sortBy === "priority") {
+        const priorityValues = { low: 0, medium: 1, high: 2 };
+        comparison = priorityValues[a.priority] - priorityValues[b.priority];
+      } else if (sortBy === "title") {
+        comparison = a.title.localeCompare(b.title);
       }
 
-      return sortDirection === 'asc' ? comparison : -comparison
-    })
-  }, [tasks, filter, sortBy, sortDirection])
+      return sortDirection === "asc" ? comparison : -comparison;
+    });
+  }, [tasks, filter, sortBy, sortDirection]);
 
   // Task statistics
   const taskStats = useMemo(() => {
-    const total = tasks.length
-    const completed = tasks.filter(task => task.completed).length
-    const active = total - completed
-    const highPriority = tasks.filter(task => task.priority === 'high').length
+    const total = tasks.length;
+    const completed = tasks.filter((task) => task.completed).length;
+    const active = total - completed;
+    const highPriority = tasks.filter((task) => task.priority === "high").length;
 
-    return { total, completed, active, highPriority }
-  }, [tasks])
+    return { total, completed, active, highPriority };
+  }, [tasks]);
 
   // Priority color mapping
-  const getPriorityColor = (priority: Task['priority']) => {
+  const getPriorityColor = (priority: Task["priority"]) => {
     switch (priority) {
-      case 'low': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300'
-      case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
-      case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
-      default: return ''
+      case "low":
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+      case "medium":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
+      case "high":
+        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+      default:
+        return "";
     }
-  }
+  };
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -177,15 +177,21 @@ function TaskPage() {
               <div className="text-sm text-gray-500 dark:text-gray-400">Total</div>
             </div>
             <div className="bg-green-100 dark:bg-green-900/30 p-3 rounded-lg text-center">
-              <div className="text-2xl font-bold text-green-700 dark:text-green-400">{taskStats.completed}</div>
+              <div className="text-2xl font-bold text-green-700 dark:text-green-400">
+                {taskStats.completed}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Completed</div>
             </div>
             <div className="bg-blue-100 dark:bg-blue-900/30 p-3 rounded-lg text-center">
-              <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">{taskStats.active}</div>
+              <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">
+                {taskStats.active}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Active</div>
             </div>
             <div className="bg-red-100 dark:bg-red-900/30 p-3 rounded-lg text-center">
-              <div className="text-2xl font-bold text-red-700 dark:text-red-400">{taskStats.highPriority}</div>
+              <div className="text-2xl font-bold text-red-700 dark:text-red-400">
+                {taskStats.highPriority}
+              </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">High Priority</div>
             </div>
           </div>
@@ -196,7 +202,10 @@ function TaskPage() {
           <h2 className="text-xl font-bold mb-4">Add New Task</h2>
           <div className="space-y-4">
             <div>
-              <label htmlFor="task-title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label
+                htmlFor="task-title"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
                 Task Title
               </label>
               <input
@@ -204,19 +213,22 @@ function TaskPage() {
                 id="task-title"
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && addTask()}
+                onKeyDown={(e) => e.key === "Enter" && addTask()}
                 placeholder="Enter task title..."
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               />
             </div>
             <div>
-              <label htmlFor="task-priority" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label
+                htmlFor="task-priority"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
                 Priority
               </label>
               <select
                 id="task-priority"
                 value={newTaskPriority}
-                onChange={(e) => setNewTaskPriority(e.target.value as Task['priority'])}
+                onChange={(e) => setNewTaskPriority(e.target.value as Task["priority"])}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
               >
                 <option value="low">Low</option>
@@ -242,29 +254,32 @@ function TaskPage() {
             {/* Filter controls */}
             <div className="flex items-center space-x-2">
               <button
-                onClick={() => setFilter('all')}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${filter === 'all'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                  }`}
+                onClick={() => setFilter("all")}
+                className={`px-3 py-1 text-sm rounded-lg transition-colors ${
+                  filter === "all"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                }`}
               >
                 All
               </button>
               <button
-                onClick={() => setFilter('active')}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${filter === 'active'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                  }`}
+                onClick={() => setFilter("active")}
+                className={`px-3 py-1 text-sm rounded-lg transition-colors ${
+                  filter === "active"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                }`}
               >
                 Active
               </button>
               <button
-                onClick={() => setFilter('completed')}
-                className={`px-3 py-1 text-sm rounded-lg transition-colors ${filter === 'completed'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
-                  }`}
+                onClick={() => setFilter("completed")}
+                className={`px-3 py-1 text-sm rounded-lg transition-colors ${
+                  filter === "completed"
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+                }`}
               >
                 Completed
               </button>
@@ -286,7 +301,7 @@ function TaskPage() {
                 className="p-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors"
                 aria-label="Toggle sort direction"
               >
-                {sortDirection === 'asc' ? '↑' : '↓'}
+                {sortDirection === "asc" ? "↑" : "↓"}
               </button>
             </div>
           </div>
@@ -298,8 +313,11 @@ function TaskPage() {
           </div>
         ) : (
           <ul className="space-y-2">
-            {filteredAndSortedTasks.map(task => (
-              <li key={task.id} className="border dark:border-gray-700 rounded-lg p-4 flex items-center justify-between gap-4 group hover:bg-blue-50/70 dark:hover:bg-blue-900/20 transition-colors">
+            {filteredAndSortedTasks.map((task) => (
+              <li
+                key={task.id}
+                className="border dark:border-gray-700 rounded-lg p-4 flex items-center justify-between gap-4 group hover:bg-blue-50/70 dark:hover:bg-blue-900/20 transition-colors"
+              >
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <input
                     type="checkbox"
@@ -308,11 +326,15 @@ function TaskPage() {
                     className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className={`text-sm font-medium truncate ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : ''}`}>
+                    <p
+                      className={`text-sm font-medium truncate ${task.completed ? "line-through text-gray-500 dark:text-gray-400" : ""}`}
+                    >
                       {task.title}
                     </p>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className={`text-xs px-2 py-1 rounded ${getPriorityColor(task.priority)}`}>
+                      <span
+                        className={`text-xs px-2 py-1 rounded ${getPriorityColor(task.priority)}`}
+                      >
                         {task.priority}
                       </span>
                       <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -324,7 +346,9 @@ function TaskPage() {
                 <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <select
                     value={task.priority}
-                    onChange={(e) => updateTaskPriority(task.id, e.target.value as Task['priority'])}
+                    onChange={(e) =>
+                      updateTaskPriority(task.id, e.target.value as Task["priority"])
+                    }
                     className="text-xs border rounded px-2 py-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   >
                     <option value="low">Low</option>
@@ -345,5 +369,5 @@ function TaskPage() {
         )}
       </div>
     </div>
-  )
+  );
 }
