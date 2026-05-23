@@ -62,3 +62,23 @@ pnpm deploy
 ## ESLint Configuration
 
 This project uses the latest ESLint 9 (flat config). Edit `eslint.config.js` as needed.
+
+## Tooling
+
+CLI tools (`lefthook`) are managed by [aqua](https://aquaproj.github.io/) with versions pinned in [aqua.yaml](aqua.yaml).
+
+### Install tools
+
+Install aqua itself first (see the [aqua installation guide](https://aquaproj.github.io/docs/install)), then install the pinned tools:
+
+```bash
+aqua install
+```
+
+### Set up git hooks
+
+[lefthook](lefthook.yml) runs lint and format checks on staged files before each commit. Register the hooks once after cloning:
+
+```bash
+lefthook install
+```
