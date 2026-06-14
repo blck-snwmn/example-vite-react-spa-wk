@@ -17,8 +17,6 @@ jobs:
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
-        with:
-          version: 10
       - name: Install
         run: pnpm install
       - name: Lint
@@ -32,8 +30,6 @@ jobs:
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
-        with:
-          version: 10
       - name: Install
         run: pnpm install
       - name: Format Check
@@ -47,8 +43,6 @@ jobs:
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
-        with:
-          version: 10
       - name: Install
         run: pnpm install
       - name: Test
@@ -64,8 +58,6 @@ jobs:
         with:
           persist-credentials: false
       - uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
-        with:
-          version: 10
       - name: Install
         run: pnpm install
       - name: Deploy
