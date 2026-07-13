@@ -1,0 +1,41 @@
+name: GitHub Actions Security Parallel Benchmark
+
+on:
+  push:
+    branches:
+      - codex/actions-step-parallel-experiment
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    name: Security benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+
+      - name: Install aqua tools
+        uses: aquaproj/aqua-installer@96a9bc20066c5bf5e275b41019cfc165b25f4e2e # v4.0.5
+        with:
+          aqua_version: v2.60.1
+
+      - name: Prepare baseline workflows
+        run: |
+          mkdir -p /tmp/security-benchmark
+          git archive HEAD^ .github/workflows | tar -x -C /tmp/security-benchmark
+
+      - parallel:
+          - name: Check action pinning
+            run: pinact run --check /tmp/security-benchmark/.github/workflows/*.{yml,yaml}
+            env:
+              GITHUB_TOKEN: ${{ github.token }}
+
+          - name: Audit workflows
+            run: zizmor --format github /tmp/security-benchmark
+            env:
+              GH_TOKEN: ${{ github.token }}

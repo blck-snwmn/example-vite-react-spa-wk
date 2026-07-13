@@ -9,60 +9,9 @@ on:
 permissions:
   contents: read
 jobs:
-  lint:
+  checks:
     runs-on: ubuntu-latest
-    name: Lint
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          persist-credentials: false
-      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version-file: package.json
-          cache: pnpm
-      - name: Install
-        run: pnpm install
-      - name: Lint
-        run: pnpm run lint
-
-  fmt:
-    runs-on: ubuntu-latest
-    name: Format
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          persist-credentials: false
-      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version-file: package.json
-          cache: pnpm
-      - name: Install
-        run: pnpm install
-      - name: Format Check
-        run: pnpm run fmt:check
-
-  test:
-    runs-on: ubuntu-latest
-    name: Test
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          persist-credentials: false
-      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271 # v6.0.9
-      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
-        with:
-          node-version-file: package.json
-          cache: pnpm
-      - name: Install
-        run: pnpm install
-      - name: Test
-        run: pnpm run test run
-
-  typegen:
-    runs-on: ubuntu-latest
-    name: Typegen
+    name: Checks
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
@@ -78,12 +27,19 @@ jobs:
         run: pnpm run cf-typegen
       - name: Check generated types
         run: git diff --exit-code -- worker-configuration.d.ts
+      - parallel:
+          - name: Lint
+            run: pnpm run lint
+          - name: Format Check
+            run: pnpm run fmt:check
+          - name: Test
+            run: pnpm run test run
 
   deploy:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     name: Deploy
-    needs: [lint, fmt, test, typegen]
+    needs: [checks]
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
