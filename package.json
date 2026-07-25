@@ -26,8 +26,8 @@
 		"@tanstack/react-router": "1.170.18",
 		"@tanstack/router-devtools": "1.167.0",
 		"@tanstack/router-vite-plugin": "1.167.23",
-		"react": "19.2.7",
-		"react-dom": "19.2.7",
+		"react": "19.2.8",
+		"react-dom": "19.2.8",
 		"tailwindcss": "4.3.3"
 	},
 	"devDependencies": {
