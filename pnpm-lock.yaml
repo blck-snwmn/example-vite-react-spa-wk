@@ -55,8 +55,8 @@ importers:
         specifier: 4.1.10
         version: 4.1.10(vitest@4.1.10)
       jsdom:
-        specifier: 30.0.0
-        version: 30.0.0
+        specifier: 30.0.1
+        version: 30.0.1
       oxfmt:
         specifier: 0.61.0
         version: 0.61.0
@@ -74,7 +74,7 @@ importers:
         version: 8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4)
       vitest:
         specifier: 4.1.10
-        version: 4.1.10(@vitest/ui@4.1.10)(jsdom@30.0.0)(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4))
+        version: 4.1.10(@vitest/ui@4.1.10)(jsdom@30.0.1)(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4))
       wrangler:
         specifier: 4.114.0
         version: 4.114.0
@@ -228,13 +228,6 @@ packages:
   '@csstools/color-helpers@6.1.0':
     resolution: {integrity: sha512-064IFJdjTfUqnjpCVpMOdbr8FLQBhinbZj6yRv2An2E41O/pLEXqfFRWqGq/SxlE5PEUYTlvWsG2r8MswAVvkg==}
     engines: {node: '>=20.19.0'}
-
-  '@csstools/css-calc@3.2.1':
-    resolution: {integrity: sha512-DtdHlgXh5ZkA43cwBcAm+huzgJiwx3ZTWVjBs94kwz2xKqSimDA3lBgCjphYgwgVUMWatSM0pDd8TILB1yrVVg==}
-    engines: {node: '>=20.19.0'}
-    peerDependencies:
-      '@csstools/css-parser-algorithms': ^4.0.0
-      '@csstools/css-tokenizer': ^4.0.0
 
   '@csstools/css-calc@3.3.0':
     resolution: {integrity: sha512-c5ihYsPkdG6JCkU2zTMm4+k6r7RXuGxtWYhu5DHMIiF1FHzrfmHL5so11AoFpUv/tu61xfcmT4AmKoFfMPoqdQ==}
@@ -1880,8 +1873,8 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  jsdom@30.0.0:
-    resolution: {integrity: sha512-JQHfRGmmKmaZoUAvIgff5jjG/0SzTQlGz8c7t72KzBzo8ZULEjAjnYE0sNwBOUA4QtWwYE2xoYitg8NFsmiYxA==}
+  jsdom@30.0.1:
+    resolution: {integrity: sha512-52v7mUVUfNQVYYqE1lcdaymWL0njO7lTLUog6ZvW2U5KsbiLk/GnZlVJ+qx0xfNJZ6Gn+KSpPNE52vurbxZwrA==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
     peerDependencies:
       canvas: ^3.2.3
@@ -2457,7 +2450,7 @@ snapshots:
 
   '@asamuzakjp/css-color@6.0.5':
     dependencies:
-      '@csstools/css-calc': 3.2.1(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)
+      '@csstools/css-calc': 3.3.0(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)
       '@csstools/css-color-parser': 4.1.10(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)
       '@csstools/css-parser-algorithms': 4.0.0(@csstools/css-tokenizer@4.0.0)
       '@csstools/css-tokenizer': 4.0.0
@@ -2619,11 +2612,6 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.9
 
   '@csstools/color-helpers@6.1.0': {}
-
-  '@csstools/css-calc@3.2.1(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)':
-    dependencies:
-      '@csstools/css-parser-algorithms': 4.0.0(@csstools/css-tokenizer@4.0.0)
-      '@csstools/css-tokenizer': 4.0.0
 
   '@csstools/css-calc@3.3.0(@csstools/css-parser-algorithms@4.0.0(@csstools/css-tokenizer@4.0.0))(@csstools/css-tokenizer@4.0.0)':
     dependencies:
@@ -3590,7 +3578,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.0
-      vitest: 4.1.10(@vitest/ui@4.1.10)(jsdom@30.0.0)(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4))
+      vitest: 4.1.10(@vitest/ui@4.1.10)(jsdom@30.0.1)(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4))
 
   '@vitest/utils@4.1.10':
     dependencies:
@@ -3803,7 +3791,7 @@ snapshots:
 
   js-tokens@4.0.0: {}
 
-  jsdom@30.0.0:
+  jsdom@30.0.1:
     dependencies:
       '@asamuzakjp/css-color': 6.0.5
       '@asamuzakjp/dom-selector': 8.3.0
@@ -4238,7 +4226,7 @@ snapshots:
       jiti: 2.7.0
       tsx: 4.19.4
 
-  vitest@4.1.10(@vitest/ui@4.1.10)(jsdom@30.0.0)(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4)):
+  vitest@4.1.10(@vitest/ui@4.1.10)(jsdom@30.0.1)(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4)):
     dependencies:
       '@vitest/expect': 4.1.10
       '@vitest/mocker': 4.1.10(vite@8.1.5(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.19.4))
@@ -4262,7 +4250,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@vitest/ui': 4.1.10(vitest@4.1.10)
-      jsdom: 30.0.0
+      jsdom: 30.0.1
     transitivePeerDependencies:
       - msw
 
