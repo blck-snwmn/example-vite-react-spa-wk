@@ -40,7 +40,7 @@
 		"@vitejs/plugin-react-swc": "4.3.3",
 		"@vitest/ui": "4.1.10",
 		"jsdom": "30.0.1",
-		"oxfmt": "0.62.0",
+		"oxfmt": "0.63.0",
 		"oxlint": "1.78.0",
 		"oxlint-tsgolint": "7.0.2001",
 		"typescript": "7.0.2",
