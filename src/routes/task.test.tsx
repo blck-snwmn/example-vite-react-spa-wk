@@ -342,6 +342,25 @@ describe("TaskPage", () => {
   });
 
   describe("LocalStorage連携", () => {
+    it("保存済みのタスクを読み込める", async () => {
+      localStorageMock.setItem(
+        "tasks",
+        JSON.stringify([
+          {
+            id: "saved-task",
+            title: "読込テスト",
+            completed: false,
+            priority: "medium",
+            createdAt: "2026-08-23T00:00:00.000Z",
+          },
+        ]),
+      );
+
+      renderWithRouter();
+
+      expect(await screen.findByText("読込テスト")).toBeInTheDocument();
+    });
+
     it("タスクがLocalStorageに保存される", async () => {
       const user = userEvent.setup();
       renderWithRouter();

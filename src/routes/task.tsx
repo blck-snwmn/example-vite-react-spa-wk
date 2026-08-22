@@ -21,51 +21,36 @@ type FilterType = "all" | "active" | "completed";
 // Sort type
 type SortType = "createdAt" | "priority" | "title";
 
-function TaskPage() {
+const loadTasks = (): Task[] => {
+  console.info("Loading tasks from localStorage");
   const savedTasks = localStorage.getItem("tasks");
-  let t: Task[] = [];
-  if (savedTasks) {
-    try {
-      // Parse the JSON and convert string dates back to Date objects
-      type StoredTask = Omit<Task, "createdAt"> & { createdAt: string };
-      const parsedTasks = JSON.parse(savedTasks).map((task: StoredTask) => ({
-        ...task,
-        createdAt: new Date(task.createdAt),
-      }));
-      console.info("Loaded tasks from localStorage:", parsedTasks);
-      t = parsedTasks;
-    } catch (error) {
-      console.error("Error loading tasks from localStorage:", error);
-      throw error;
-    }
+  if (!savedTasks) {
+    return [];
   }
+
+  try {
+    // Parse the JSON and convert string dates back to Date objects
+    type StoredTask = Omit<Task, "createdAt"> & { createdAt: string };
+    const parsedTasks = JSON.parse(savedTasks).map((task: StoredTask) => ({
+      ...task,
+      createdAt: new Date(task.createdAt),
+    }));
+    console.info("Loaded tasks from localStorage:", parsedTasks);
+    return parsedTasks;
+  } catch (error) {
+    console.error("Error loading tasks from localStorage:", error);
+    return [];
+  }
+};
+
+function TaskPage() {
   // Task management state
-  const [tasks, setTasks] = useState<Task[]>(t);
+  const [tasks, setTasks] = useState<Task[]>(loadTasks);
   const [newTaskTitle, setNewTaskTitle] = useState<string>("");
   const [newTaskPriority, setNewTaskPriority] = useState<Task["priority"]>("medium");
   const [filter, setFilter] = useState<FilterType>("all");
   const [sortBy, setSortBy] = useState<SortType>("createdAt");
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
-
-  // Load tasks from localStorage on component mount
-  useEffect(() => {
-    console.info("Loading tasks from localStorage");
-    const savedTasks = localStorage.getItem("tasks");
-    if (savedTasks) {
-      try {
-        // Parse the JSON and convert string dates back to Date objects
-        type StoredTask = Omit<Task, "createdAt"> & { createdAt: string };
-        const parsedTasks = JSON.parse(savedTasks).map((task: StoredTask) => ({
-          ...task,
-          createdAt: new Date(task.createdAt),
-        }));
-        console.info("Loaded tasks from localStorage:", parsedTasks);
-        setTasks(parsedTasks);
-      } catch (error) {
-        console.error("Error loading tasks from localStorage:", error);
-      }
-    }
-  }, []);
 
   // Save tasks to localStorage whenever they change
   useEffect(() => {
